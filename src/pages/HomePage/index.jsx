@@ -1,9 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./style.css";
 
 export const HomePage = () => {
   const [like, setLike] = useState(0);
   const [dislike, setDislike] = useState(0);
+  const [joke, setJoke] = useState('')
+
+  useEffect (() => {
+    const fetchJoke = async () => {
+      const response = await fetch('http://localhost:4000/api/jokes')
+      const data = await response.json();
+      setJoke(data.result);
+    };
+
+    fetchJoke();
+  }, []);
 
   return (
     <div className="container">
